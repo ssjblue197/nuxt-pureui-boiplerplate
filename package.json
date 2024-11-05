@@ -1,0 +1,56 @@
+{
+    "name": "fa-shop",
+    "private": true,
+    "scripts": {
+        "build": "nuxi build",
+        "production": "nuxi build --dotenv .env.production",
+        "staging": "nuxi build --dotenv .env.staging",
+        "test": "nuxi build --dotenv .env.test",
+        "dev": "nuxi dev",
+        "generate": "nuxi generate",
+        "preview": "nuxi preview",
+        "postinstall": "nuxi prepare"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "resolutions": {
+        "string-width": "4.2.3"
+    },
+    "devDependencies": {
+        "@nuxt/devtools": "^1.0.8",
+        "@nuxt/eslint-config": "^0.2.0",
+        "@nuxtjs/google-fonts": "^3.2.0",
+        "@nuxtjs/tailwindcss": "^6.11.4",
+        "@types/node": "^20.11.25",
+        "aos": "^2.3.4",
+        "autoprefixer": "^10.4.18",
+        "nuxt": "^3.10.3",
+        "nuxt-vite": "0.3.5",
+        "postcss": "^8.4.35",
+        "pure-date-format": "^1.0.7",
+        "pure-uikit": "^1.4.1",
+        "tailwindcss": "^3.4.1",
+        "tiny-emitter": "^2.1.0",
+        "typescript": "^5.4.2",
+        "vanilla-tilt": "^1.8.1",
+        "vite-plugin-static-copy": "^2.0.0",
+        "vue-tsc": "^1",
+        "zod": "^3.23.8"
+    },
+    "dependencies": {
+        "@nuxtjs/robots": "^3.0.0",
+        "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+        "@pinia/nuxt": "^0.5.1",
+        "@types/nprogress": "^0.2.3",
+        "animate.css": "^4.1.1",
+        "mitt": "^3.0.1",
+        "nprogress": "^0.2.0",
+        "nuxt-swiper": "^1.2.2",
+        "pinia": "^2.1.7",
+        "pinia-plugin-persistedstate": "^3.2.1",
+        "sass": "^1.71.1",
+        "tailwind-merge": "^2.2.2",
+        "tailwindcss-animate": "^1.0.7"
+    }
+}

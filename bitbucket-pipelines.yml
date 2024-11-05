@@ -1,0 +1,158 @@
+image: node:18
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Build
+          caches:
+            - node
+          script:
+            - yarn install
+            - yarn test
+          artifacts:
+            - .output/**
+            - restart.sh
+            - ecosystem.config.js
+      - step:
+          name: Sync & Restart
+          deployment: test
+          script:
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: '.output/**'
+                DEBUG: 'true'
+                EXTRA_ARGS:
+                  - "--exclude=.git/"
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: 'restart.sh'
+                DEBUG: 'true'
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: 'ecosystem.config.js'
+                DEBUG: 'true'
+            - pipe: atlassian/ssh-run:0.8.0
+              variables:
+                SSH_USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                PORT: $FTP_PORT
+                DEBUG: 'true'
+                MODE: 'script'
+                COMMAND: './restart.sh'
+
+    staging:
+      - step:
+          name: Build
+          caches:
+            - node
+          script:
+            - yarn install
+            - yarn staging
+          artifacts:
+            - .output/**
+            - restart.sh
+            - ecosystem.config.js
+      - step:
+          name: Sync & Restart
+          deployment: staging
+          script:
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: '.output/**'
+                DEBUG: 'true'
+                EXTRA_ARGS:
+                  - "--exclude=.git/"
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: 'restart.sh'
+                DEBUG: 'true'
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: 'ecosystem.config.js'
+                DEBUG: 'true'
+            - pipe: atlassian/ssh-run:0.8.0
+              variables:
+                SSH_USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                PORT: $FTP_PORT
+                DEBUG: 'true'
+                MODE: 'script'
+                COMMAND: './restart.sh'
+        
+
+    production:
+      - step:
+          name: Build
+          caches:
+            - node
+          script:
+            - yarn install
+            - yarn production
+          artifacts:
+            - .output/**
+            - restart.sh
+            - ecosystem.config.js
+      - step:
+          name: Sync & Restart
+          deployment: production
+          script:
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: '.output/**'
+                DEBUG: 'true'
+                EXTRA_ARGS:
+                  - "--exclude=.git/"
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: 'restart.sh'
+                DEBUG: 'true'
+            - pipe: atlassian/rsync-deploy:0.11.0
+              variables:
+                USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                REMOTE_PATH: $FTP_PATH
+                SSH_PORT: $FTP_PORT
+                LOCAL_PATH: 'ecosystem.config.js'
+                DEBUG: 'true'
+            - pipe: atlassian/ssh-run:0.8.0
+              variables:
+                SSH_USER: $FTP_USER
+                SERVER: $FTP_SERVER
+                PORT: $FTP_PORT
+                DEBUG: 'true'
+                MODE: 'script'
+                COMMAND: './restart.sh'
+            
