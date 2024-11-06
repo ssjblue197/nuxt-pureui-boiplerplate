@@ -11,6 +11,7 @@ export default defineNuxtConfig({
       style: [],
       script: [],
       noscript: [{ children: 'JavaScript is required' }],
+      lang: 'vi',
     },
     keepalive: false, //Default values for KeepAlive configuration between pages. Default: false
     layoutTransition: { name: 'layout', mode: 'out-in' },
@@ -106,7 +107,7 @@ export default defineNuxtConfig({
   pages: true,
 
   plugins: [
-    { src: '@/plugins/pureui.ts' },
+    { src: '@/plugins/pureui.client.ts' },
     { src: '@/plugins/error.ts' },
     { src: '~/plugins/aos.client.ts', mode: 'client', ssr: false },
     { src: '@/plugins/environment.ts' },
@@ -122,6 +123,12 @@ export default defineNuxtConfig({
   },
 
   rootDir: '.',
+
+  // router: {
+  //   options: {
+  //     scrollBehaviorType: 'smooth', //Use  for hashMode  (SPA or ssr: false)
+  //   },
+  // },
 
   routeRules: {
     // Homepage pre-rendered at build time
@@ -196,4 +203,9 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-11-06',
+
+  typescript: {
+    // typeCheck: true,
+    // strict: false
+  },
 });

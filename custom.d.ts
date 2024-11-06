@@ -5,4 +5,4 @@ declare module '*.svg' {
   export default component;
 }
 
-declare module 'vue-toastification/dist/index.mjs';
+declare module 'pure-uikit/dist/pure-ui.js';
