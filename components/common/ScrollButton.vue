@@ -1,7 +1,6 @@
 <template>
   <span
-    class="w-12 h-12 bg-[rgba(252,252,252,0.15)] text-gray-iron-400 rounded-full border-gray-iron-500 cursor-pointer shadow-md hover:shadow-lg flex items-center justify-center border z-[51]"
-    tabindex="0"
+    class="z-[51] flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white shadow-md hover:shadow-lg"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

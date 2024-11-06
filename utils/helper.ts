@@ -1,7 +1,3 @@
-import moment from 'moment-timezone';
-//@ts-ignore
-import base64 from 'base-64';
-
 export const $ = (query: string) => window.document.querySelector(query);
 export const $$ = (query: string) => window.document.querySelectorAll(query);
 
@@ -105,46 +101,6 @@ export function checkMultiple(value: number) {
     return 's';
   }
   return '';
-}
-
-export function timeFromNow(date: string | undefined) {
-  if (!date) return;
-  console.log(date);
-
-  const endStr = date.split('.')[0].replace('T', ' ');
-  const startStr = moment().format('YYYY-MM-DD HH:mm:ss');
-
-  const timeEnd = moment(endStr, 'YYYY-MM-DD HH:mm:ss');
-  const timeStart = moment(startStr, 'YYYY-MM-DD HH:mm');
-  const diffSeconds = timeEnd.diff(timeStart, 'seconds');
-  if (diffSeconds >= 86400) {
-    return (
-      String(Math.floor(diffSeconds / 86400)) +
-      ' day' +
-      checkMultiple(Math.floor(diffSeconds / 86400))
-    );
-  }
-  if (diffSeconds >= 3600 && diffSeconds < 86400) {
-    return (
-      String(Math.floor(diffSeconds / 3600)) +
-      ' hour' +
-      checkMultiple(Math.floor(diffSeconds / 3600))
-    );
-  }
-  if (diffSeconds > 60 && diffSeconds < 3600) {
-    return (
-      String(Math.floor(diffSeconds / 60)) +
-      ' minute' +
-      checkMultiple(Math.floor(diffSeconds / 60))
-    );
-  }
-  if (diffSeconds < 60) {
-    return (
-      String(Math.floor(diffSeconds)) +
-      ' second' +
-      checkMultiple(Math.floor(diffSeconds))
-    );
-  }
 }
 
 export const transformHTMLQuill = (html: any) => {
@@ -269,18 +225,6 @@ export function formatBytes(bytes: number, decimals?: number) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-export function base64ToArrayBuffer(data: string) {
-  var input = data.substring(data.indexOf(',') + 1);
-  var binaryString = window.atob(input);
-  var binaryLen = binaryString.length;
-  var bytes = new Uint8Array(binaryLen);
-  for (var i = 0; i < binaryLen; i++) {
-    var ascii = binaryString.charCodeAt(i);
-    bytes[i] = ascii;
-  }
-  return bytes;
-}
-
 export const fileToBinary = (file: File) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -294,16 +238,6 @@ export const fileToBinary = (file: File) => {
     reader.readAsArrayBuffer(file);
   });
 };
-
-export function _arrayBufferToBase64(buffer: ArrayBuffer) {
-  var binary = '';
-  var bytes = new Uint8Array(buffer);
-  var len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return base64.encode(binary);
-}
 
 export const waitTime = (delay: number) => {
   return new Promise((resolve) => setTimeout(resolve, delay));

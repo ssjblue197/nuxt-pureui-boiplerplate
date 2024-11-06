@@ -13,13 +13,6 @@ const iconByStatus: Record<string, string> = {
   danger: 'x-circle',
 };
 
-export type Variant =
-  | 'primary'
-  | 'success'
-  | 'neutral'
-  | 'warning'
-  | 'danger';
-
 export interface ToastOptions {
   message?: string;
   variant: Variant;
@@ -39,20 +32,21 @@ export function useToast() {
   };
 
   const show = (options: ToastOptions) => {
-    const { message, variant, icon, duration, closable } =
-      Object.assign(defaultOptions, options);
-    const alert = Object.assign(
-      document.createElement('p-alert'),
-      {
-        variant,
-        closable,
-        duration,
-        innerHTML: `
-            <p-icon name="${icon || iconByStatus[variant]}" slot="icon"></p-icon>
+    const { message, variant, icon, duration, closable } = Object.assign(
+      defaultOptions,
+      options,
+    );
+    const alert = Object.assign(document.createElement('p-alert'), {
+      variant,
+      closable,
+      duration,
+      innerHTML: `
+            <p-icon name="${
+              icon || iconByStatus[variant]
+            }" slot="icon"></p-icon>
             ${escapeHtml(message)}
           `,
-      },
-    );
+    });
     document.body.append(alert);
     return alert.toast();
   };

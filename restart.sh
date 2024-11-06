@@ -1,1 +1,1 @@
-pm2 restart 'SWIFTPOD Home Page'
+pm2 restart 'PureUI Nuxt Template'

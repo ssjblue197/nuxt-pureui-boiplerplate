@@ -1,8 +1,8 @@
 module.exports = {
     apps: [{
-        name: 'SWIFTPOD Home Page',
+        name: 'PureUI Nuxt Template',
         exec_mode: 'fork',
         script: './server/index.mjs',
-        port: 1370,
+        port: 1234,
     }, ],
 };

@@ -4,14 +4,13 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 export default defineNuxtConfig({
   app: {
     head: {
-      title: 'Nuxt PureUI',
+      title: 'PureUI Nuxt Template',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      meta: [{ name: 'description', content: 'Nuxt PureUI' }],
+      meta: [{ name: 'description', content: 'PureUI Nuxt Template' }],
       style: [],
       script: [],
       noscript: [{ children: 'JavaScript is required' }],
-      class: 'p-theme-light',
     },
     keepalive: false, //Default values for KeepAlive configuration between pages. Default: false
     layoutTransition: { name: 'layout', mode: 'out-in' },
@@ -22,37 +21,27 @@ export default defineNuxtConfig({
     rootTag: 'div',
   },
 
-  build: {
-    analyze: {
-      template: 'treemap',
-      projectRoot: '.',
-      filename: './.nuxt/analyze/{name}.html',
-    },
-    transpile: [],
-  },
-
   components: [
-    { path: '~/components/uikit', prefix: 'p', extensions: ['.vue'] },
     {
       path: '~/components',
       pathPrefix: false,
       extensions: ['.vue'],
     },
-    {
-      path: '~/features',
-      pathPrefix: false,
-      extensions: ['.vue'],
-    },
   ],
 
-  css: ['~/assets/css/index.scss', 'animate.css', 'swiper/css'],
-
+  css: [
+    'pure-uikit/dist/themes/light.css',
+    'pure-uikit/dist/themes/dark.css',
+    '~/assets/css/index.scss',
+    'animate.css',
+    'swiper/css',
+  ],
   debug: false,
 
   devServer: {
     host: 'localhost',
     https: false,
-    port: 1368,
+    port: 1234,
   },
 
   devtools: {
@@ -75,14 +64,13 @@ export default defineNuxtConfig({
   },
 
   imports: {
-    dirs: ['features/**', 'types/**'], //An array of custom directories that will be auto-imported.
+    dirs: ['types/**'], //An array of custom directories that will be auto-imported.
     global: false,
   },
 
   logLevel: 'info',
 
   modules: [
-    '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     'nuxt-swiper',
@@ -97,6 +85,7 @@ export default defineNuxtConfig({
       },
     ],
   ],
+
   swiper: {
     // Swiper options
     //----------------------
@@ -115,6 +104,7 @@ export default defineNuxtConfig({
   },
 
   pages: true,
+
   plugins: [
     { src: '@/plugins/error.ts' },
     { src: '~/plugins/aos.client.ts', mode: 'client', ssr: false },
@@ -184,16 +174,26 @@ export default defineNuxtConfig({
     propsDestructure: true,
     runtimeCompiler: false,
   },
+
   vite: {
     plugins: [
       viteStaticCopy({
         targets: [
           {
             src: 'node_modules/pure-uikit/dist/assets',
-            dest: 'public',
+            dest: 'public/',
           },
         ],
       }),
     ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler', // or "modern"
+        },
+      },
+    },
   },
+
+  compatibilityDate: '2024-11-06',
 });

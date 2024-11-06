@@ -1,27 +1,37 @@
 <template>
-  <div class="spinner"></div>
+  <div class="loading"></div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style scoped>
-.spinner {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #131316;
-  animation: spin 1s linear infinite;
+.loading {
+  height: 50px;
+  width: 50px;
+  border: 6px solid var(--p-color-primary-500);
+  border-radius: 4px;
+  box-shadow: 0 0 8px var(--p-color-primary-500),
+    0 0 8px var(--p-color-primary-500) inset;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: 10;
+  animation: 2s loading ease-in-out infinite;
 }
 
-@keyframes spin {
+@keyframes loading {
   0% {
-    transform: rotate(0deg);
-    transform-origin: center;
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+  33% {
+    transform: rotateX(180deg) rotateY(0) rotateZ(0);
+  }
+  66% {
+    transform: rotateX(180deg) rotateY(180deg) rotateZ(0);
   }
   100% {
-    transform: rotate(360deg);
-    transform-origin: center;
+    transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
   }
 }
 </style>

@@ -13,17 +13,17 @@
 import { useSystemStore } from '@/store/system';
 const systemStore = useSystemStore();
 useSeoMeta({
-  title: 'SWIFTPOD',
-  ogTitle: 'SWIFTPOD',
-  description: 'SWIFTPOD',
-  ogDescription: 'SWIFTPOD',
+  title: 'PureUI Nuxt Template',
+  ogTitle: 'PureUI Nuxt Template',
+  description: 'PureUI Nuxt Template',
+  ogDescription: 'PureUI Nuxt Template',
   ogImage: 'https://swiftpod.com/preview_image.webp',
   twitterCard: 'summary_large_image',
 });
 useHead({
   htmlAttrs: {
-    lang: 'en',
-    // class: 'access',
+    lang: 'vi',
+    class: 'p-theme-light',
   },
   script: [
     {
