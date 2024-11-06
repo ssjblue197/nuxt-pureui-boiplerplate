@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: 'clear',
+  layout: 'default',
 });
 const route = useRoute();
 const query = route.query;

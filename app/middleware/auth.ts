@@ -1,9 +1,9 @@
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '~/stores/auth';
 
 export default defineNuxtRouteMiddleware((to) => {
   const authStore = useAuthStore();
   if (to.name == 'auth-signin') {
-    if (!authStore.profile?.token) {
+    if (!authStore?.token) {
       return;
     } else {
       return navigateTo({

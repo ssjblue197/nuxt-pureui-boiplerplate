@@ -234,12 +234,6 @@
 
 <script setup lang="ts">
 import { vAutoAnimate } from '@formkit/auto-animate';
-import { useAuthStore } from '@/store/auth';
-import { useCartStore } from '@/store/cart';
-
-const cartStore = useCartStore();
-
-const authStore = useAuthStore();
 const currentSelect = ref();
 
 interface Local {
@@ -322,3 +316,4 @@ onBeforeMount(() => {
   }
 }
 </style>
+~/stores/auth

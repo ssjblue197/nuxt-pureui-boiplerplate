@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSystemStore } from '@/store/system';
+import { useSystemStore } from '@/stores/system';
 const systemStore = useSystemStore();
 useSeoMeta({
   title: 'PureUI Nuxt Template',
@@ -81,3 +81,4 @@ onMounted(() => {
   filter: blur(1rem);
 }
 </style>
+~/stores/system~/utils/cookiesConsent

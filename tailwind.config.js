@@ -8,11 +8,9 @@ const colors = require('tailwindcss/colors');
 // eslint-disable-next-line no-undef
 module.exports = {
     content: [
-        './components/**/*.{js,vue,ts}',
-        './layouts/**/*.vue',
-        './pages/**/*.vue',
-        './plugins/**/*.{js,ts}',
-        './nuxt.config.{js,ts}',
+        './app/components/**/*.{js,vue,ts}',
+        './app/layouts/**/*.vue',
+        './app/pages/**/*.vue',
         './app.vue',
     ],
     presets: [],

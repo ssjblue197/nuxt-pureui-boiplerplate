@@ -3,23 +3,19 @@ import { defineStore } from 'pinia';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
 
-import type { AuthPayload, UserProfile } from '@/types/auth';
+import type { User, AuthPayload } from '@/types/auth';
 
 export const useAuthStore = defineStore({
   id: 'auth-store',
   state: () => {
     return {
-      profile: {} as UserProfile,
+      user: null as User | null,
+      token: null as string | null,
     };
   },
   getters: {
-    isLogin: (state) => {
-      return !!state.profile?.token;
-    },
-    displayName: (state) => {
-      return (
-        state.profile?.user?.name ?? state.profile?.user?.email?.split('@')?.[0]
-      );
+    isSupportLogin: (state) => {
+      return !!state.user?.is_support;
     },
   },
   actions: {
@@ -32,7 +28,7 @@ export const useAuthStore = defineStore({
 
       if (data.value) {
         const router = useRouter();
-        this.profile = data.value;
+        this.user = data.value;
         await this.myInfo();
 
         router.push({
@@ -54,7 +50,7 @@ export const useAuthStore = defineStore({
       );
       if (data.value) {
         const router = useRouter();
-        this.profile = data.value;
+        this.user = data.value;
         router.push({
           name: 'index',
         });
@@ -99,9 +95,8 @@ export const useAuthStore = defineStore({
         method: 'GET',
       });
       if (isObject(data.value)) {
-        this.profile = {
-          ...this.profile,
-          user: data.value,
+        this.user = {
+          ...this.user,
         };
       }
 
@@ -110,7 +105,7 @@ export const useAuthStore = defineStore({
     async logout() {
       const router = useRouter();
       const route = useRoute();
-      this.profile = {};
+      this.user = {};
       if (
         route.name &&
         !['auth-signin', 'auth-forgot-password'].includes(String(route.name))
@@ -120,15 +115,10 @@ export const useAuthStore = defineStore({
         });
       }
     },
-    setToken(token: string) {
-      this.profile = {
-        ...this.profile,
-        token,
-      };
-    },
+    setToken(token: string) {},
   },
   persist: {
-    key: 'magictransfer-client-auth-store',
+    key: 'nuxt-pureui-auth-store',
     storage: persistedState.localStorage,
     // paths: []
   },

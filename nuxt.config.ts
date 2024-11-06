@@ -11,7 +11,6 @@ export default defineNuxtConfig({
       style: [],
       script: [],
       noscript: [{ children: 'JavaScript is required' }],
-      lang: 'vi',
     },
     keepalive: false, //Default values for KeepAlive configuration between pages. Default: false
     layoutTransition: { name: 'layout', mode: 'out-in' },
@@ -24,16 +23,17 @@ export default defineNuxtConfig({
 
   components: [
     {
-      path: '~/components',
+      path: '@/app/components',
       pathPrefix: false,
       extensions: ['.vue'],
     },
+    'pure-uikit/dist/components/**/*.{vue,js,ts,jsx,tsx}',
   ],
 
   css: [
     'pure-uikit/dist/themes/light.css',
     'pure-uikit/dist/themes/dark.css',
-    '~/assets/css/index.scss',
+    '@/app/assets/css/index.scss',
     'animate.css',
     'swiper/css',
   ],
@@ -54,17 +54,19 @@ export default defineNuxtConfig({
   },
 
   dir: {
-    assets: 'assets',
-    layouts: 'layouts',
-    middleware: 'middleware',
+    app: 'app',
+    assets: 'app/assets',
+    layouts: 'app/layouts',
+    middleware: 'app/middleware',
     modules: 'modules',
-    pages: 'pages',
-    plugins: 'plugin',
+    pages: 'app/pages',
+    plugins: 'app/plugin',
     public: 'public',
-    static: 'static',
+    static: 'app/static',
   },
 
   imports: {
+    // autoImport: false,
     dirs: ['types/**'], //An array of custom directories that will be auto-imported.
     global: false,
   },
@@ -107,10 +109,10 @@ export default defineNuxtConfig({
   pages: true,
 
   plugins: [
-    { src: '@/plugins/pureui.client.ts' },
-    { src: '@/plugins/error.ts' },
-    { src: '~/plugins/aos.client.ts', mode: 'client', ssr: false },
-    { src: '@/plugins/environment.ts' },
+    { src: '@/app/plugins/pureui.client.ts' },
+    { src: '@/app/plugins/error.ts' },
+    { src: '@/app/plugins/aos.client.ts', mode: 'client', ssr: false },
+    { src: '@/app/plugins/environment.ts' },
   ],
 
   postcss: {
@@ -205,7 +207,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-06',
 
   typescript: {
-    // typeCheck: true,
-    // strict: false
+    typeCheck: true,
+    strict: true,
   },
+
+  spaLoadingTemplate: true,
 });

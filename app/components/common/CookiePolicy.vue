@@ -40,9 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import { useSystemStore } from '@/store/system';
-const systemStore = useSystemStore();
-
 const emits = defineEmits(['close']);
 
 const loadGtm = () => {
@@ -67,21 +64,17 @@ const loadGtm = () => {
 };
 
 const handleAcceptCookies = () => {
-  // systemStore.acceptCookies = true;
-  // systemStore.showCookies = false;
   setCookie('cookieConsent', 'accepted', 365);
   loadGtm();
   emits('close');
 };
 
 const handleDenyCookies = () => {
-  // systemStore.showCookies = false;
   setCookie('cookieConsent', 'declined', 30);
   emits('close');
 };
 
 const handleRejectAcceptCookies = () => {
-  // systemStore.showCookies = false;
   setCookie('cookieConsent', 'declined', 365); // Store decline for 1 year
   // No need to reload if not loading any scripts
   emits('close');
@@ -89,3 +82,4 @@ const handleRejectAcceptCookies = () => {
 </script>
 
 <style scoped></style>
+~/stores/system~/utils/cookiesConsent

@@ -123,10 +123,10 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/store/auth';
-import sidebar, { SidebarRouter } from '@/components/sidebar/const';
+import { useAuthStore } from '@/stores/auth';
+import sidebar, { type SidebarRouter } from '@/app/components/sidebar/const';
 import { twMerge } from 'tailwind-merge';
-import { useSystemStore } from '@/store/system';
+import { useSystemStore } from '@/stores/system';
 
 const router = useRouter();
 const systemStore = useSystemStore();
@@ -188,3 +188,4 @@ onBeforeUnmount(() => {
   @apply relative mt-auto w-full;
 }
 </style>
+~/stores/auth~/stores/system

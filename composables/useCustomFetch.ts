@@ -1,5 +1,5 @@
 import { defu } from 'defu';
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '~/stores/auth';
 
 const progress = useProgress();
 
@@ -41,7 +41,7 @@ export interface CustomFetchOptions {
   watch?: MultiWatchSources | false;
   query?: {
     [key: string]: string | number | boolean | Array<string | number>;
-  } & Paginate;
+  } & PaginateParams;
   pick?: keyof unknown;
 }
 
@@ -63,8 +63,8 @@ export function useCustomFetch(
   const defaults: CustomFetchOptions = {
     baseURL: isHRM ? config?.public?.apiHrmBase : config?.public?.apiBase,
     key: url,
-    headers: authStore.profile?.token
-      ? { Authorization: `Bearer ${authStore.profile?.token}` }
+    headers: authStore?.token
+      ? { Authorization: `Bearer ${authStore?.token}` }
       : {},
     onResponse: (_ctx) => {
       progress.stop();

@@ -39,13 +39,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();
 const router = useRouter();
 const runtimeConfig = useRuntimeConfig();
-const { $toast } = useNuxtApp();
-
+const toast = useToast();
 interface Props {
   action: string;
 }
@@ -80,18 +79,27 @@ const getMessage = async (event: { data: { code: string; scope: string } }) => {
 
     const token = data?.token;
 
-    if (!token)
-      return $toast.error(data?.error?.message || 'Continue with Google fails');
+    if (!token) return;
+    toast.show({
+      variant: 'danger',
+      message: data?.error?.message || 'Continue with Google fails',
+    });
 
     authStore.setToken(token);
 
     await authStore.myInfo();
     setTimeout(() => {
-      $toast.success('Login successfully');
+      toast.show({
+        variant: 'success',
+        message: 'Login successfully',
+      });
     }, 0);
     router.push('/');
   } catch (e) {
-    $toast.error(getErrorMessage(e));
+    toast.show({
+      variant: 'danger',
+      message: getErrorMessage(e),
+    });
   }
 };
 
@@ -103,3 +111,4 @@ onUnmounted(() => {
   window.removeEventListener('message', getMessage, false);
 });
 </script>
+~/stores/auth~/composables/useToast

@@ -1,14 +1,8 @@
-import { reactive, toRefs, ref, toRaw } from 'vue';
 import * as z from 'zod';
 
 interface FormConfig<T> {
   // Event triggering validation
-  mode?:
-    | 'onBlur'
-    | 'onChange'
-    | 'onSubmit'
-    | 'onTouched'
-    | 'all';
+  mode?: 'onBlur' | 'onChange' | 'onSubmit' | 'onTouched' | 'all';
   // Set default values
   initialValues: T;
   //Catch validation errors
@@ -49,8 +43,7 @@ export function useForm<T>({
       if (error instanceof z.ZodError) {
         const err = error as z.ZodError;
         const issue = err.errors[0];
-        (state.errors as Record<string, string>)[name] =
-          issue.message;
+        (state.errors as Record<string, string>)[name] = issue.message;
         errorList.value.push(issue);
       }
     }
@@ -58,7 +51,7 @@ export function useForm<T>({
 
   const handleChange = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
-    (state.values as Record<string, any>)[name] = value;
+    setNestedValue(state.values as any, name, value);
     if (mode === 'onChange' || mode === 'all') {
       validateField(name, value);
     }
@@ -74,7 +67,8 @@ export function useForm<T>({
 
   const handleTouch = (e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
-    (state.values as Record<string, any>)[name] = value;
+    // (state.values as Record<string, any>)[name] = value;
+    setNestedValue(state.values as any, name, value);
     (state.touched as Record<string, boolean>)[name] = true;
     (state.errors as Record<string, string>)[name] = '';
     if (mode === 'onTouched' || mode === 'all') {
@@ -119,50 +113,34 @@ export function useForm<T>({
     console.log('errorList.value', newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      onSubmit(toRaw(state.values));
+      onSubmit(toRaw(state.values as any));
     } else if (shouldFocusError) {
       const firstErrorField = Object.keys(newErrors)[0];
 
       const currentFormField =
         (
-          document.querySelector(
-            `[name="${firstErrorField}"]`,
-          ) as HTMLElement
+          document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
         )?.querySelector('p-input') ||
         (
-          document.querySelector(
-            `[name="${firstErrorField}"]`,
-          ) as HTMLElement
+          document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
         )?.querySelector('p-textarea') ||
         (
-          document.querySelector(
-            `[name="${firstErrorField}"]`,
-          ) as HTMLElement
+          document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
         )?.querySelector('p-select') ||
         (
-          document.querySelector(
-            `[name="${firstErrorField}"]`,
-          ) as HTMLElement
+          document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
         )?.querySelector('p-checkbox') ||
         (
-          document.querySelector(
-            `[name="${firstErrorField}"]`,
-          ) as HTMLElement
+          document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
         )?.querySelector('p-toggle') ||
         (
-          document.querySelector(
-            `[name="${firstErrorField}"]`,
-          ) as HTMLElement
+          document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
         )?.querySelector('p-switch') ||
         (
-          document.querySelector(
-            `[name="${firstErrorField}"]`,
-          ) as HTMLElement
+          document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
         )?.querySelector('p-color-picker') ||
         (
-          document.querySelector(
-            `[name="${firstErrorField}"]`,
-          ) as HTMLElement
+          document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
         )?.querySelector('p-file-upload');
 
       currentFormField?.scrollIntoView({
@@ -173,6 +151,30 @@ export function useForm<T>({
     }
   };
 
+  const setFieldValue = (key: keyof T, value: string | number): void => {
+    (state.values as Record<keyof T, unknown>)[key] = value;
+    console.log(state.values);
+  };
+
+  const setValues = (values: Record<keyof T, unknown>) => {
+    state.values = {
+      ...(state.values as Record<keyof T, unknown>),
+      ...values,
+    } as any;
+  };
+
+  const getValues = () => {
+    return state.values;
+  };
+
+  const resetForm = () => {
+    state.values = initialValues as any;
+  };
+
+  const hasChanged = computed(() => {
+    return JSON.stringify(initialValues) !== JSON.stringify(state.values);
+  });
+
   return {
     schema,
     ...toRefs(state),
@@ -181,5 +183,10 @@ export function useForm<T>({
     handleTouch,
     handleSubmit,
     values: toRaw(state.values),
+    setFieldValue,
+    getValues,
+    setValues,
+    resetForm,
+    hasChanged,
   };
 }
