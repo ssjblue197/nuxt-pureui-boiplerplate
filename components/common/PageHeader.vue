@@ -234,8 +234,8 @@
 
 <script setup lang="ts">
 import { vAutoAnimate } from '@formkit/auto-animate';
-import { useAuthStore } from '~/store/auth';
-import { useCartStore } from '~/store/cart';
+import { useAuthStore } from '@/store/auth';
+import { useCartStore } from '@/store/cart';
 
 const cartStore = useCartStore();
 

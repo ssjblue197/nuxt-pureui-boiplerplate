@@ -102,9 +102,9 @@
 </template>
 
 <script setup lang="ts">
-import type { SidebarRouter } from '~/components/sidebar/const';
+import type { SidebarRouter } from '@/components/sidebar/const';
 import { twMerge } from 'tailwind-merge';
-import { useSystemStore } from '~/store/system';
+import { useSystemStore } from '@/store/system';
 
 const systemStore = useSystemStore();
 const route = useRoute();

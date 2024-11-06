@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getErrorMessage } from '~/utils/helper';
+import { getErrorMessage } from '@/utils/helper';
 import { useAuthStore } from '@/modules/auth/store';
 import type { User } from '@/modules/auth/types';
 

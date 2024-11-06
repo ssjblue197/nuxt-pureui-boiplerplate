@@ -106,10 +106,10 @@ export default defineNuxtConfig({
   pages: true,
 
   plugins: [
+    { src: '@/plugins/pureui.ts' },
     { src: '@/plugins/error.ts' },
     { src: '~/plugins/aos.client.ts', mode: 'client', ssr: false },
     { src: '@/plugins/environment.ts' },
-    { src: '@/plugins/pureui.ts' },
   ],
 
   postcss: {

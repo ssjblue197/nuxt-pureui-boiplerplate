@@ -1,5 +1,5 @@
 import { defu } from 'defu';
-import { useAuthStore } from '~/store/auth';
+import { useAuthStore } from '@/store/auth';
 
 const progress = useProgress();
 

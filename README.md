@@ -1,63 +1,91 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 Boilerplate with PureUI, TypeScript, and Pinia
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This boilerplate is designed to help you kickstart your project using Nuxt 3 combined with PureUI, a UI kit built by you, along with TypeScript and Pinia for state management.
+
+## Features
+
+- **Nuxt 3**: Enjoy the powerful features of the latest version of Nuxt, including SSR, static site generation, and more.
+- **PureUI**: Utilize your custom-built UI kit, PureUI, to create a consistent and beautiful user interface.
+- **TypeScript**: Benefit from static typing and modern JavaScript features with TypeScript.
+- **Pinia**: Manage your application's state with Pinia, a modern and lightweight state management library.
+
+## Directory Structure
+
+```plaintext
+├── assets
+│   └── css
+│       ├── index.scss
+│       └── themes
+├── components
+├── layouts
+├── pages
+├── plugins
+│   ├── pureui.ts
+│   └── error.ts
+├── store
+│   └── store.ts
+├── app.vue
+├── nuxt.config.ts
+├── package.json
+└── README.md
+```
 
 ## Setup
 
-Make sure to install the dependencies:
+1. **Clone the repository:**
 
-```bash
-# npm
-npm install
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
 
-# pnpm
-pnpm install
+2. **Install dependencies:**
 
-# yarn
-yarn install
-```
+   ```bash
+   npm install
+   ```
 
-## Development Server
+3. **Run the development server:**
 
-Start the development server on `http://localhost:3000`:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-# npm
-npm run dev
+   The application will be available at `http://localhost:3000`.
 
-# pnpm
-pnpm run dev
+## Configuration
 
-# yarn
-yarn dev
-```
+- **Nuxt Configuration**: Modify `nuxt.config.ts` to customize your app's settings, including environment variables, plugins, and modules.
+- **Tailwind CSS**: Tailwind CSS is included and configured with custom themes and utilities.
 
-## Production
+## Usage
 
-Build the application for production:
+- **Components**: Develop and organize your Vue components within the `components` directory.
+- **Layouts**: Define your app's layout structure in the `layouts` directory.
+- **Pages**: Create your application pages within the `pages` directory, leveraging Nuxt's file-based routing.
+- **Plugins**: Add custom plugins in the `plugins` directory to extend the functionality of your app.
+- **Store**: Manage your app's state using Pinia, with stores defined in the `store` directory.
 
-```bash
-# npm
-npm run build
+## Deployment
 
-# pnpm
-pnpm run build
+1. **Build the application:**
 
-# yarn
-yarn build
-```
+   ```bash
+   npm run build
+   ```
 
-Locally preview production build:
+2. **Start the production server:**
 
-```bash
-# npm
-npm run preview
+   ```bash
+   npm start
+   ```
 
-# pnpm
-pnpm run preview
+3. The application will be served at `http://localhost:1234`.
 
-# yarn
-yarn preview
-```
+## Contributing
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Contributions are welcome! Please fork the repository and make a pull request with your changes.
+
+## License
+
+This project is licensed under the MIT License.

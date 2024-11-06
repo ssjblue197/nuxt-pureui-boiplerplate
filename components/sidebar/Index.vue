@@ -25,10 +25,10 @@
         >
           <img src="/icon.png" alt="logo" class="h-8" />
           <span
-            class="text-lg font-bold text-gray-900"
+            class="text-lg font-bold text-blue-600"
             v-if="!systemStore.isCollapseSidebar"
           >
-            PureUI
+            ureUI
           </span>
         </div>
 
@@ -123,47 +123,16 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '~/store/auth';
-import sidebar, { SidebarRouter } from '~/components/sidebar/const';
+import { useAuthStore } from '@/store/auth';
+import sidebar, { SidebarRouter } from '@/components/sidebar/const';
 import { twMerge } from 'tailwind-merge';
-import { useSystemStore } from '~/store/system';
-import { useStoreStore } from '~/store/store';
+import { useSystemStore } from '@/store/system';
 
 const router = useRouter();
 const systemStore = useSystemStore();
-const storeStore = useStoreStore();
 const authStore = useAuthStore();
 
 const logoutModal = ref();
-const sidebarItems = computed(() => {
-  if (storeStore.selectedStore?.id) {
-    if (
-      !storeStore.selectedStore?.wallet ||
-      Number(storeStore.selectedStore?.wallet?.pay_later) === 1
-    ) {
-      // Generate sidebar items when change to store pay later (Only show invoices, not Wallet module)
-      return sidebar.map((i: SidebarRouter) => {
-        if (i.name === 'Payment') {
-          i = {
-            ...i,
-            name: 'Invoices',
-            icon: 'receipt-check',
-            router: {
-              name: 'invoices',
-            },
-            children: undefined,
-          };
-        }
-        return i;
-      });
-    } else {
-      // Generate sidebar items when change to store pay now (Show Wallet module)
-      return sidebar;
-    }
-  } else {
-    return sidebar.filter((i: SidebarRouter) => i.name !== 'Payment');
-  }
-});
 
 const showLogout = () => {
   logoutModal.value.show();
